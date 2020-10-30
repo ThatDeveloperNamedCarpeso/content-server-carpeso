@@ -21,11 +21,6 @@ const port = process.env.PORT || 5000;
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-// Routes
-app.post('/posttest', function(req, res) {
-    res.send('helo!');
-    console.log(req.body.username, req.body.password);
-})
 app.post('/login', async (req, res) => {
     try {
         const client = await pool.connect();
