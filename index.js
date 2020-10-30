@@ -2,20 +2,36 @@
 const fs = require('fs');
 const path = require('path');
 const dir = path.join(__dirname, '/src');
+
+// FOR HEROKU! Heroku Postgres
+const { Pool } = require('pg');
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
 // Express modules
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Static files
+// Routes
+app.get('/createtable', async (req, res) => {
+    try {
+        const client = await pool.connect();
+        const result = await client.query('CREATE TABLE IF NOT EXISTS users (uid serial PRIMARY KEY,name VARCHAR (150) UNIQUE NOT NULL,email VARCHAR (150) NOT NULL,password VARCHAR (32) NOT NULL);');
+        const results = { 'results': (result) ? result.rows : null};
+        res.render('pages/db', results);
+        client.release();
+    } catch (err) {
+        console.error(err);
+        res.send("Error " + err);
+    }
+});
 
-app.use('/files/', express.static(path.join(__dirname, 'public')))
-
-// Routing and Node Code
-app.get('/', (req, res) => {
-    res.sendFile(path.join(dir, '/index.html'));
-})
-
+// Listen to app
 app.listen(port, () => {
     console.log(`app is listening on ${port}`)
 });
