@@ -18,10 +18,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Routes
-app.get('/users', async (req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const client = await pool.connect();
-        const result = await client.query('SELECT * FROM users');
+        const result = await client.query(`SELECT * FROM users WHERE name='${req.body.username}' AND password='${req.body.password}'`);
         const results = { 'results': (result) ? result.rows : null};
         res.send(results);
         client.release();
@@ -31,7 +31,7 @@ app.get('/users', async (req, res) => {
     }
 });
 
-app.post('/users', async (req, res) => {
+app.post('/register', async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await client.query(`INSERT INTO users (name, email, password) VALUES ('${req.body.username}', '${req.body.email}', '${req.body.password}')`);
