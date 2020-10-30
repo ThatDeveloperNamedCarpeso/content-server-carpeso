@@ -21,9 +21,9 @@ const port = process.env.PORT || 5000;
 app.get('/createtable', async (req, res) => {
     try {
         const client = await pool.connect();
-        const result = await client.query('CREATE TABLE IF NOT EXISTS users (uid serial PRIMARY KEY,name VARCHAR (150) UNIQUE NOT NULL,email VARCHAR (150) NOT NULL,password VARCHAR (32) NOT NULL);');
+        const result = await client.query('SELECT * FROM users');
         const results = { 'results': (result) ? result.rows : null};
-        res.render('pages/db', results);
+        res.send(results);
         client.release();
     } catch (err) {
         console.error(err);
