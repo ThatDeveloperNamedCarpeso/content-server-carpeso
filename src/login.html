@@ -137,7 +137,6 @@
                 event.stopPropagation();
                 let template = `<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`;
                 event.target.innerHTML = template;
-
                 fetch('https://content-server-carpeso.herokuapp.com/login', {
                     method: 'POST',
                     headers: {
@@ -148,9 +147,14 @@
                         password: document.getElementById('password').value
                     })
                 })
-                .then(data => data.json())
-                .then(res => {
-                    console.log(res);
+                .then(data => {
+                    if(data.status == 200) {
+                        console.log('successfully logged in!');
+                    } else if(data.status == 202) {
+                        console.warn('warning! no account found!');
+                    } esle if(data.status == 401) {
+                        console.error('Cannot access database!');
+                    }
                 })
             });
         });

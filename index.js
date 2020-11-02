@@ -37,8 +37,11 @@ app.post('/login', async (req, res) => {
     try {
         const client = await pool.connect();
         const result = await client.query(`SELECT * FROM users WHERE name='${req.body.username}' AND password='${req.body.password}'`);
-        const results = { 'results': (result) ? result.rows : null};
-        res.status(200).send({status: 'OK', data: results});
+        if(result.rowCount > 0) {
+            res.status(200).send({status: 'OK'});
+        } else {
+            res.status(202).send({status: 'NO'});
+        }
         client.release();
     } catch (err) {
         console.error(err);
