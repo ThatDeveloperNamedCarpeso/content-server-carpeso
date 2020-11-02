@@ -38,7 +38,7 @@ app.post('/login', async (req, res) => {
         const client = await pool.connect();
         const result = await client.query(`SELECT * FROM users WHERE name='${req.body.username}' AND password='${req.body.password}'`);
         const results = { 'results': (result) ? result.rows : null};
-        console.log(results);
+        res.status(200).send({status: 'OK', data: results});
         client.release();
     } catch (err) {
         console.error(err);
