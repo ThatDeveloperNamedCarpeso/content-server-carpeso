@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/asset/fonts.css">
+    <style>
+        /* Spinners */
+        .spinner {
+            width: 20px;
+            height: 20px;
+
+            position: relative;
+            margin: 5px;
+        }
+        .double-bounce1, .double-bounce2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: rgb(255, 255, 255);
+            opacity: 0.6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            
+            -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+            animation: sk-bounce 2.0s infinite ease-in-out;
+        }
+        .double-bounce2 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+        }
+        @-webkit-keyframes sk-bounce {
+            0%, 100% { -webkit-transform: scale(0.0) }
+            50% { -webkit-transform: scale(1.0) }
+        }
+        @keyframes sk-bounce {
+            0%, 100% { 
+                transform: scale(0.0);
+                -webkit-transform: scale(0.0);
+            } 50% { 
+                transform: scale(1.0);
+                -webkit-transform: scale(1.0);
+            }
+        }
+        /*  */
+
+        body, html {
+            font-family: 'Quicksand';
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            box-sizing: border-box;
+            margin-bottom: auto;
+        }
+        label {
+            font-size: 0.8rem;
+            margin-left: 5px;
+            margin-bottom: 2px;
+            width: 100%;
+        }
+        input {
+            font-size: 1rem;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #e4e4e4;
+            font-family: inherit;
+            height: 40px;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        button {
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: inherit;
+            margin-top: auto;
+            width: 100%;
+            border: none;
+            box-sizing: border-box;
+            height: 40px;
+            border-radius: 5px;
+            background: #4A00E0;  /* fallback for old browsers */
+            color: white;
+        }
+        button:focus, input:focus {
+            outline: none;
+        }
+        .container {
+            background: #8E2DE2;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #4A00E0, #8E2DE2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .form {
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            margin: auto auto;
+            height: 350px;
+            width: 275px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.1), 0 0px 10px 0 rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="http://localhost:5000/login" class="form" method="POST">
+            <span class="title">Login</span>
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" style="margin-bottom: 20px;">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+            <button type="submit" id="submit">Login</button>
+        </form>
+    </div>
+    <script>
+        window.addEventListener('load', event => {
+            document.getElementById('submit').addEventListener('click', event => {
+                event.stopPropagation();
+                let template = `<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`;
+                event.target.innerHTML = template;
+            });
+        });
+    </script>
+</body>
+</html>
