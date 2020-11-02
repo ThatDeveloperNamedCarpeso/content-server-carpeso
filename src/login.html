@@ -122,14 +122,14 @@
 </head>
 <body>
     <div class="container">
-        <form action="http://localhost:5000/login" class="form" method="POST">
+        <div class="form">
             <span class="title">Login</span>
             <label for="username">Username</label>
             <input type="text" name="username" id="username" style="margin-bottom: 20px;">
             <label for="password">Password</label>
             <input type="password" name="password" id="password">
             <button type="submit" id="submit">Login</button>
-        </form>
+        </div>
     </div>
     <script>
         window.addEventListener('load', event => {
@@ -137,6 +137,21 @@
                 event.stopPropagation();
                 let template = `<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>`;
                 event.target.innerHTML = template;
+
+                fetch('https://content-server-carpeso.herokuapp.com/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify({
+                        username: document.getElementById('username').value,
+                        password: document.getElementById('password').value
+                    })
+                })
+                .then(data => data.json())
+                .then(res => {
+                    console.log(res);
+                })
             });
         });
     </script>
