@@ -12,6 +12,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "nedb": "^1.8.0",
     "pell": "^1.0.6",
     "pg": "^8.4.2"
