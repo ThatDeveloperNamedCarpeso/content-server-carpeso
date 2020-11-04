@@ -86,12 +86,12 @@ app.post('/login', async (req, res) => {
             }
             res.redirect(307, '/');
         } else {
-            res.status(202).send(null);
+            res.redirect(202, '/');
         }
         client.release();
     } catch (err) {
         console.error(err);
-        res.status(401).send(null);
+        res.redirect(401, '/');
     }
 });
 app.post('/register', async (req, res) => {
