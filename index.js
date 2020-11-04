@@ -84,14 +84,14 @@ app.post('/login', async (req, res) => {
             req.session.user_data = {
                 data: result
             }
-            res.redirect(307, '/');
+            res.status(200).send(result);
         } else {
-            res.redirect(202, '/');
+            res.status(202).send(null);
         }
         client.release();
     } catch (err) {
         console.error(err);
-        res.redirect(401, '/');
+        res.status(401).send(null);
     }
 });
 app.post('/register', async (req, res) => {
@@ -108,7 +108,6 @@ app.post('/register', async (req, res) => {
 });
 app.post('/logout', async (req, res) => {
     req.session.destroy();
-    res.redirect(307, '/');
 })
 
 // Listen to app
