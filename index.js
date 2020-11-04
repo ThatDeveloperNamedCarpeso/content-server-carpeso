@@ -84,7 +84,7 @@ app.post('/login', async (req, res) => {
             req.session.user_data = {
                 data: result
             }
-            res.status(200).send(result);
+            res.redirect(307, '/');
         } else {
             res.status(202).send(null);
         }
@@ -108,6 +108,7 @@ app.post('/register', async (req, res) => {
 });
 app.post('/logout', async (req, res) => {
     req.session.destroy();
+    res.redirect(307, '/');
 })
 
 // Listen to app
